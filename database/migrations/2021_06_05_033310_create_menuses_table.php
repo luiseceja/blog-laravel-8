@@ -15,11 +15,12 @@ class CreateMenusesTable extends Migration
     {
         Schema::create('menuses', function (Blueprint $table) {
             $table->id();
-           $table->bigInteger('menus_id');
+           $table->unsignedBigInteger('menus_id')->nullable();
+           $table->foreign('menus_id')->references('id')->on('menuses')->onDelete('cascade')->onUpdate('restrict');
            $table->string('nombre');
            $table->string('url');
-           $table->integer('orden');
-           $table->string('icono');
+           $table->unsignedInteger('orden')->default(1);
+           $table->string('icono')->nullable();
         });
     }
 
