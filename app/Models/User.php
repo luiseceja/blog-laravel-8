@@ -10,6 +10,12 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    protected $guarded=[];
+
+    public function roles(){
+        return $this->belongsToMany(roles::class,'users_roles','users_id','roles_id');
+
+    }
 
     /**
      * The attributes that are mass assignable.
