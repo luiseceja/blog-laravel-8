@@ -44,15 +44,11 @@ class instalador extends Command
         if (!$this->verificarrol() && !$this->verificaruser()) {
             $rol = $this->crearRolSuperAdmin();
             $usuario = $this->crearUsuarioSuperAdmin();
+            $usuario->roles()->attach($rol);
             $this->info('ya se crearon el usurio y el rol');
-        } else if (!$this->verificarrol()) {
-            $rol = $this->crearRolSuperAdmin();
-            $this->info('ya se crearon  el rol');
-        } elseif (!$this->verificaruser()) {
-            $usuario = $this->crearUsuarioSuperAdmin();
-            $this->info('ya se crearon el usurio');
-        } elseif ($this->verificarrol() && $this->verificaruser()) {
-            $this->error('No se puede crear el rol  ni el usuario ya que se han creado');
+
+        } else {
+            $this->error('No se puede crear el rol ni el usuario ya que se han creado');
         }
     }
     private function verificarrol()
